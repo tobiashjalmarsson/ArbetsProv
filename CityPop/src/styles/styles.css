@@ -1,1 +1,27 @@
 
+/* Settings */
+/*Convert rem and set fonts.*/
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.container {
+    text-align: center;
+    max-width: 60rem;
+    margin: 7.5% auto;
+}
+
+/* Header.js */
+
+.header h1 {
+    font-size: 6rem;
+}
+
+.header h2 {
+    font-size: 3rem;
+    color: grey;
+}
