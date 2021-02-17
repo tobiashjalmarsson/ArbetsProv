@@ -35,3 +35,22 @@ body {
     border-radius: 1rem;
     margin: 3rem 1rem;
 }
+
+/* SearchPage */
+.search__input {
+    font-size: 2rem;
+    width: 28rem;
+    height: 3rem;
+    margin-bottom: 1rem;
+    border-radius: 2rem;
+}
+
+input:focus, textarea:focus, select:focus {
+    outline: none;
+}
+
+.search__button {
+    border-radius: 4rem;
+    height: 4rem;
+    width: 4rem;
+}
