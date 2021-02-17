@@ -3,5 +3,6 @@ import ReactDOM from 'react-dom';
 import 'normalize.css/normalize.css';
 import './styles/styles.css';
 import CityPop from './components/CityPop';
+import ButtonPage from './components/ButtonPage';
 
-ReactDOM.render(<CityPop />, document.getElementById('app'));
+ReactDOM.render(<ButtonPage />, document.getElementById('app'));
