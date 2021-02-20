@@ -10,7 +10,10 @@ import DisplayResults from './components/DisplayResults';
 import DisplayCity from './components/DisplayCity';
 
 const path = document.getElementById('app');
-ReactDOM.render(<DisplayCity />, path);
+ReactDOM.render(<DisplayCity result={{
+    name: "London", 
+    population: 2309232
+}}/>, path);
 /* 
 ReactDOM.render(
     <DisplayResults results={[
