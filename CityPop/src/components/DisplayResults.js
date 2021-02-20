@@ -10,7 +10,7 @@ const DisplayResults = (props) => {
             {props.results.map((result) => (
                 <City
                 key={result.name}
-                name={result.name}
+                result={result}
                 />
             ))}
             </div>    

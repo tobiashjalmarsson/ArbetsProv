@@ -3,7 +3,7 @@ import '../styles/styles.css';
 class City extends React.Component {
 
     wasClicked = () => {
-        console.log(this.props.name);
+        console.log(this.props.result.name);
     }
 
     render() {
@@ -12,7 +12,7 @@ class City extends React.Component {
             onClick={this.wasClicked}
             >
             <p className="city__content">
-                {this.props.name}
+                {this.props.result.name}
             </p>
             </div>
         );
