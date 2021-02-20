@@ -1,6 +1,7 @@
 import React from 'react';
 import '../styles/styles.css';
 import Header from './Header';
+import {Redirect} from 'react-router-dom';
 class SearchPage extends React.Component {
     constructor(props) {
       super(props);
@@ -8,6 +9,7 @@ class SearchPage extends React.Component {
       this.state = {
         byCity: this.props.location.state.byCity,
         loading: false,
+        displayResults: false,
         results: []
       }
     }
@@ -19,7 +21,7 @@ class SearchPage extends React.Component {
       });
       // Preventing reload of page
       e.preventDefault();
-      const url = "http://api.geonames.org/searchJSON?q=london&maxRows=20&username=weknowit";
+      const url = "http://api.geonames.org/searchJSON?q=london&maxRows=10&username=weknowit";
       // Get input from user
       let searchTarget = e.target.elements.search.value;
       console.log(searchTarget);
@@ -48,11 +50,23 @@ class SearchPage extends React.Component {
       console.log(searchResult);
       this.setState({
         results: searchResult,
-        loading: false
+        loading: false,
+        displayResults: true
       });
     }
 
     render() {
+      if (this.state.displayResults === true) {
+        console.log("Trying to redirect");
+        return (<Redirect 
+        to={{
+          pathname: "/display_results",
+          state: {
+            results: this.state.results
+          }
+        }}
+        />);
+      }
       return(
           <div className="container">
             {this.state.byCity? <Header subtitle="SEARCH BY CITY"/> : <Header subtitle="SEARCH BY COUNTRY"/>}

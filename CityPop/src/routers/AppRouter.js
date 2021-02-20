@@ -4,12 +4,14 @@ import ButtonPage from '../components/ButtonPage';
 import CityPop from '../components/CityPop';
 import NotFound from '../components/NotFound';
 import SearchPage from '../components/SearchPage';
+import DisplayResults from '../components/DisplayResults';
 
 const AppRouter = () => (
     <BrowserRouter>
             <Switch>
                 <Route path="/" component={ButtonPage} exact={true}/>
                 <Route path="/search" component={SearchPage} exact={true}/>
+                <Route path="/display_results" component={DisplayResults}/>
                 <Route component={NotFound}/>
             </Switch>
     </BrowserRouter>
