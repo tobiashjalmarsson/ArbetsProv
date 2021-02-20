@@ -5,6 +5,7 @@ import CityPop from '../components/CityPop';
 import NotFound from '../components/NotFound';
 import SearchPage from '../components/SearchPage';
 import DisplayResults from '../components/DisplayResults';
+import DisplayCity from '../components/DisplayCity';
 
 const AppRouter = () => (
     <BrowserRouter>
@@ -12,6 +13,7 @@ const AppRouter = () => (
                 <Route path="/" component={ButtonPage} exact={true}/>
                 <Route path="/search" component={SearchPage} exact={true}/>
                 <Route path="/display_results" component={DisplayResults}/>
+                <Route path="/display_city" component={DisplayCity}/>
                 <Route component={NotFound}/>
             </Switch>
     </BrowserRouter>

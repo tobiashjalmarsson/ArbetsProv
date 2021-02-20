@@ -1,18 +1,21 @@
 import React from 'react';
 import '../styles/styles.css';
-class City extends React.Component {
+import { Redirect, useHistory, Link } from 'react-router-dom';
 
-    render() {
-        return (
-            <div className="city__container"
-            onClick={() => this.props.handleClick(this.props.result)}
-            >
-            <p className="city__content">
-                {this.props.result.name}
-            </p>
+const City = (props) => {
+    return (
+        <Link
+        className="link"
+        to={{
+            pathname: '/display_city',
+            state: { result: props.result }
+        }}>
+            <div className="city__container">
+            <p className="city__content">{props.result.name}</p>
             </div>
+        </Link>
         );
-}
+
 };
 
 export default City;

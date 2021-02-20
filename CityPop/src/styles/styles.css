@@ -15,6 +15,12 @@ body {
     margin: 7.5% auto;
 }
 
+/*Links*/
+.link {
+    text-decoration: none;
+    color: black;
+}
+
 /* Header.js */
 
 .header h1 {
@@ -82,3 +88,5 @@ input:focus, textarea:focus, select:focus {
     font-size: 4rem;
     color: darkgreen;
   }
+
+  

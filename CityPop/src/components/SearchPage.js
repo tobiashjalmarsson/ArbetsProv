@@ -9,7 +9,7 @@ class SearchPage extends React.Component {
       this.state = {
         byCity: this.props.location.state.byCity,
         loading: false,
-        displayResults: false,
+        navigate: false,
         results: []
       }
     }
@@ -51,12 +51,12 @@ class SearchPage extends React.Component {
       this.setState({
         results: searchResult,
         loading: false,
-        displayResults: true
+        navigate: true
       });
     }
 
     render() {
-      if (this.state.displayResults === true) {
+      if (this.state.navigate === true) {
         console.log("Trying to redirect");
         return (<Redirect 
         to={{
