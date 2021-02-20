@@ -6,14 +6,50 @@ class SearchPage extends React.Component {
       super(props);
       this.handleSubmit = this.handleSubmit.bind(this);
       this.state = {
-        byCity: this.props.location.state.byCity
+        byCity: this.props.location.state.byCity,
+        loading: false,
+        results: []
       }
     }
     
     handleSubmit = (e) => {
-      e.preventDefault(); //prevent
-      let searchFor = e.target.elements.search.value;
-      console.log(searchFor);
+      // Setting loading = true to display Loading...
+      this.setState({
+        loading: true
+      });
+      // Preventing reload of page
+      e.preventDefault();
+      const url = "http://api.geonames.org/searchJSON?q=london&maxRows=20&username=weknowit";
+      // Get input from user
+      let searchTarget = e.target.elements.search.value;
+      console.log(searchTarget);
+      // fetch the information from GeoNames
+      fetch(url)
+      .then(response => response.json())
+      .then(data => this.transformData(data));
+
+    }
+
+    transformData(data){
+      console.log(data);
+      let searchResult = [];
+      for(let i = 0; i < data.geonames.length; i++){
+        // Create an Array of objects with the results
+        searchResult.push(
+          {
+            name: data.geonames[i].toponymName,
+            population: data.geonames[i].population
+          }
+        );
+      }
+      // Sorting the objects in decending order based on population.
+      searchResult.sort((a,b) => (a.population > b.population) ? -1 : 1);
+
+      console.log(searchResult);
+      this.setState({
+        results: searchResult,
+        loading: false
+      });
     }
 
     render() {
@@ -27,6 +63,7 @@ class SearchPage extends React.Component {
               <div>
                 <button className="search__button"></button>
               </div>
+              {this.state.loading && <p>Loading...</p>}
             </form>
           </div>
         );
