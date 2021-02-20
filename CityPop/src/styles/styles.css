@@ -63,3 +63,22 @@ input:focus, textarea:focus, select:focus {
     border-radius: 1rem;
     font-size: 1.5rem;
   }
+
+/* DisplayCity.js */
+.population__container {
+    border: 0.2rem solid black;
+    width: 35rem;
+    margin: 1rem auto;
+    border-radius: 1rem;
+  }
+  
+  .population__txt {
+    font-size: 1.5rem;
+    margin-bottom: 0.2rem;
+  }
+  
+  .population__num {
+    margin-top: 0;
+    font-size: 4rem;
+    color: darkgreen;
+  }
