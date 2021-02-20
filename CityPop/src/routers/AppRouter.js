@@ -4,6 +4,7 @@ import ButtonPage from '../components/ButtonPage';
 import CityPop from '../components/CityPop';
 import NotFound from '../components/NotFound';
 import SearchPage from '../components/SearchPage';
+
 const AppRouter = () => (
     <BrowserRouter>
             <Switch>
