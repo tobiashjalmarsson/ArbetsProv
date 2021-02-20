@@ -9,21 +9,12 @@ import AppRouter from './routers/AppRouter';
 import DisplayResults from './components/DisplayResults';
 import DisplayCity from './components/DisplayCity';
 
+/*TODO
+Fix search for one city,
+Also look over the api,
+comment code,
+write documentation
+*/
+
 const path = document.getElementById('app');
 ReactDOM.render(<AppRouter />, path);
-/* 
-ReactDOM.render(<DisplayCity result={{
-    name: "London", 
-    population: 2309232
-}}/>, path);
-
-ReactDOM.render(
-    <DisplayResults results={[
-        {name: "London", population: 2039230},
-        {name: "Paris", population: 3847238},
-        {name: "Tokyo", population: 39429},
-        {name: "Hong Kong", population: 392482949},
-        {name: "Stockholm", population: 1203922}]} />,
-     document.getElementById('app')
-     );
-*/
