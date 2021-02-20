@@ -2,14 +2,10 @@ import React from 'react';
 import '../styles/styles.css';
 class City extends React.Component {
 
-    wasClicked = () => {
-        console.log(this.props.result.name);
-    }
-
     render() {
         return (
             <div className="city__container"
-            onClick={this.wasClicked}
+            onClick={() => this.props.handleClick(this.props.result)}
             >
             <p className="city__content">
                 {this.props.result.name}

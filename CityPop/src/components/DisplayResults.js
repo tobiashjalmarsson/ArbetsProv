@@ -2,21 +2,38 @@ import React from 'react';
 import Header from './Header';
 import City from './City';
 import {withRouter} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 
 class DisplayResults extends React.Component {
-    
+    constructor(props) {
+        super(props);
+        this.handleClick = this.handleClick.bind(this);
+        this.state = {
+            displayCity: false,
+            toDisplay: null
+        }
+    }
+
+    handleClick(city){
+        console.log("click");
+        console.log(city);
+        this.setState({
+            toDisplay: city,
+            displayCity: true
+        });
+    }
 
     render() {
-        console.log("Printing props");
-        console.log(props);
+
         return (
             <div className="container">
                 <Header />
                 <div>
-                {props.location.state.results.map((result) => (
+                {this.props.location.state.results.map((result) => (
                     <City 
                     key={result.population}
                     result={result}
+                    handleClick={this.handleClick}
                     />
                 ))}
                 </div>    

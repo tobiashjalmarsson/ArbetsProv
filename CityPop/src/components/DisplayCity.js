@@ -1,6 +1,7 @@
 import React from 'react';
 import '../styles/styles.css';
 import Header from './Header';
+import {withRouter} from 'react-router-dom';
 const DisplayCity = (props) => {
     return (
         <div>
@@ -15,4 +16,4 @@ const DisplayCity = (props) => {
     );
 }
 
-export default DisplayCity;
+export default withRouter(DisplayCity);
