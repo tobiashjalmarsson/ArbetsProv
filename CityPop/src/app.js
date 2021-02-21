@@ -14,6 +14,10 @@ Fix search for one city, [X]
 Also look over the api, [X]
 comment code, [X]
 handle errors on search, 
+    - Two cases
+        - Incorrect country[X]
+        - Incorrect city[X]
+Refactor SearchPage.js
 write documentation
 */
 

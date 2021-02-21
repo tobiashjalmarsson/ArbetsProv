@@ -12,70 +12,99 @@ class SearchPage extends React.Component {
         byCity: this.props.location.state.byCity,
         loading: false,
         // navigate = true when we are navigating from the page
+        error: '', // Set to an error message when we have received an error.
         navigate: false,
         // results: store for search results on the form {name: "cityname", population: 1234}
         results: []
       }
     }
-
-    
     // Gets input from user and fetches data from GeoNames API
     handleSubmit = (e) => {
       // Setting loading = true to display Loading...
       this.setState({
-        loading: true
+        loading: true,
+        error: '',
       });
       // Preventing reload of page
       e.preventDefault();
       // Get input from user 
+      
       let searchTarget = e.target.elements.search.value;
       //const url = "http://api.geonames.org/searchJSON?q=london&maxRows=10&username=weknowit";
-      const url = this.formatURL(searchTarget);
-      console.log(searchTarget);
+      let result = this.formatURL(searchTarget);
+      console.log(result.error);
       // fetch the information from GeoNames
-      fetch(url)
-      .then(response => response.json())
-      .then(data => this.transformData(data));
-
+      
+      if(result.error === '') {
+        fetch(result.url)
+        .then(response => response.json())
+        .then(data => this.transformData(data, result.error));
+        
+      }
+      else {
+        this.setState({
+          error: result.error,
+          loading: false
+        });
+      }
+      console.log(result.error);
+      
     }
     // Function to format the URL string according to what we are searching for, e.g City or country
     formatURL(search){
       if(this.state.byCity === true){
-        return `http://api.geonames.org/searchJSON?q=${search}&maxRows=1&username=weknowit`;
+        return ({url: `http://api.geonames.org/searchJSON?q=${search}&maxRows=1&username=weknowit`, error: ''});
       }
       else {
         //If we search for a country, we use the json file in src/data/countries.json to find the corresponding code
         // Then when we find a match we return the correctly formated string.
         for(let i = 0; i < codes.length; i++){
           if(search.toLowerCase() === codes[i].name.toLowerCase()) {
-            return `http://api.geonames.org/searchJSON?country=${codes[i].code}&cities=cities15000&maxRows=10&username=weknowit`;
+            return ({
+              url: `http://api.geonames.org/searchJSON?country=${codes[i].code}&cities=cities15000&maxRows=10&username=weknowit`,
+              error: ''});
           }
         }
+        return ({
+          url: '',
+          error: "Coulden't find matching country, please try again."
+        });
       }
     }
 
     // Creates and pushed objects to our results state.
     transformData(data){
       console.log(data);
-      let searchResult = [];
-      for(let i = 0; i < data.geonames.length; i++){
-        // Create an Array of objects with the results
-        searchResult.push(
-          {
-            name: data.geonames[i].toponymName,
-            population: data.geonames[i].population
-          }
-        );
+      // data.geonames.length is 0 when we havent found any matching search results.
+      // in that case we set loading to false and set the error message.
+      if (data.geonames.length === 0) {
+        this.setState({
+          loading: false,
+          error: "Coulden't find any matching citys, please try again."
+        });
       }
-      // Sorting the objects in decending order based on population.
-      searchResult.sort((a,b) => (a.population > b.population) ? -1 : 1);
+      else {
+        // if the length of data.geonames is not zero, then we found results and can procede accordingly
+        let searchResult = [];
+        for(let i = 0; i < data.geonames.length; i++){
+          // Create an Array of objects with the results
+          searchResult.push(
+            {
+              name: data.geonames[i].toponymName,
+              population: data.geonames[i].population
+            }
+          );
+        }
+        // Sorting the objects in decending order based on population.
+        searchResult.sort((a,b) => (a.population > b.population) ? -1 : 1);
 
-      console.log(searchResult);
-      this.setState({
-        results: searchResult,
-        loading: false,
-        navigate: true
-      });
+        console.log(searchResult);
+        this.setState({
+          results: searchResult,
+          loading: false,
+          navigate: true
+        });
+      }
     }
 
     render() {
@@ -119,6 +148,7 @@ class SearchPage extends React.Component {
                 <button className="search__button"></button>
               </div>
               {this.state.loading && <p>Loading...</p>}
+              {this.state.error && <p>Error.. {this.state.error}</p>}
             </form>
           </div>
         );
