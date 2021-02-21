@@ -13,7 +13,7 @@ class SearchPage extends React.Component {
         results: []
       }
     }
-    
+    // Gets input from user and fetches data from GeoNames API
     handleSubmit = (e) => {
       // Setting loading = true to display Loading...
       this.setState({
@@ -31,7 +31,7 @@ class SearchPage extends React.Component {
       .then(data => this.transformData(data));
 
     }
-
+    // Creates and pushed objects to our results state.
     transformData(data){
       console.log(data);
       let searchResult = [];
@@ -56,16 +56,34 @@ class SearchPage extends React.Component {
     }
 
     render() {
+
+      // If we are navigating away from SearchPage.js we have two cases
       if (this.state.navigate === true) {
-        console.log("Trying to redirect");
-        return (<Redirect 
-        to={{
-          pathname: "/display_results",
-          state: {
-            results: this.state.results
-          }
-        }}
+        // First case: if we are searching for multiple citys in a country
+        // Then we navigate to DisplayResults.js and pass in the results state
+        if(this.state.byCity === false) {
+          return (<Redirect 
+          to={{
+            pathname: "/display_results",
+            state: {
+              results: this.state.results
+            }
+          }}
         />);
+        }
+        // Second case: if we are searching for one city in a country
+        // Then we navigate to DisplayCity.js and pass in a single object
+        // as the result prop.
+        else {
+          return (<Redirect 
+            to={{
+              pathname: "/display_city",
+              state: {
+                result: this.state.results[0]
+              }
+            }}
+            />);
+        }
       }
       return(
           <div className="container">
