@@ -2,7 +2,11 @@ import React from 'react';
 import '../styles/styles.css';
 import { Link } from 'react-router-dom';
 
-// pass a prop subtitle="example" to the Header component to generate a subtitle
+/*
+Component responsible for rendering the header used on all pages.
+If a prop subtitle is passed in, that will be rendered, if no prop is passed in we only render "City Pop".
+The subtitle can be accessed with: props.subtitle
+*/
 const Header = (props) => {
     return (
             <div className="header">

@@ -7,9 +7,12 @@ class SearchPage extends React.Component {
       super(props);
       this.handleSubmit = this.handleSubmit.bind(this);
       this.state = {
+        // determines if we are searching for a single city
         byCity: this.props.location.state.byCity,
         loading: false,
+        // navigate = true when we are navigating from the page
         navigate: false,
+        // results: store for search results on the form {name: "cityname", population: 1234}
         results: []
       }
     }

@@ -3,7 +3,11 @@ import '../styles/styles.css';
 import Header from './Header';
 import {withRouter} from 'react-router-dom';
 const DisplayCity = (props) => {
-    console.log(props.location.state.result.name);
+    /*
+    The component resposible for Displaying a Citys population and name after search is complete.
+    - name can be accessed with: props.location.state.result.name
+    - population can be accessed with: props.location.state.result.population
+    */
     return (
         <div>
             <div className="container">

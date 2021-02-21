@@ -10,7 +10,7 @@ import DisplayResults from './components/DisplayResults';
 import DisplayCity from './components/DisplayCity';
 
 /*TODO
-Fix search for one city,
+Fix search for one city, [X]
 Also look over the api,
 comment code,
 write documentation

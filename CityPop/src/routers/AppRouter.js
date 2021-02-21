@@ -7,6 +7,10 @@ import SearchPage from '../components/SearchPage';
 import DisplayResults from '../components/DisplayResults';
 import DisplayCity from '../components/DisplayCity';
 
+
+/*
+Main router used for navigating between components.
+*/
 const AppRouter = () => (
     <BrowserRouter>
             <Switch>

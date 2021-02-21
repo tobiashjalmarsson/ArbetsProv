@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/styles.css';
 import Header from './Header';
-import {Link, BrowserRouter} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 const ButtonPage = (props) => {
     /*
     the state of the link will determine how the corresponding SearchPage is rendered
