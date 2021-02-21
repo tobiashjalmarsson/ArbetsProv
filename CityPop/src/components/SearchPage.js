@@ -1,6 +1,7 @@
 import React from 'react';
 import '../styles/styles.css';
 import Header from './Header';
+import codes from '../data/countries.json';
 import {Redirect} from 'react-router-dom';
 class SearchPage extends React.Component {
     constructor(props) {
@@ -16,6 +17,8 @@ class SearchPage extends React.Component {
         results: []
       }
     }
+
+    
     // Gets input from user and fetches data from GeoNames API
     handleSubmit = (e) => {
       // Setting loading = true to display Loading...
@@ -24,9 +27,10 @@ class SearchPage extends React.Component {
       });
       // Preventing reload of page
       e.preventDefault();
-      const url = "http://api.geonames.org/searchJSON?q=london&maxRows=10&username=weknowit";
-      // Get input from user
+      // Get input from user 
       let searchTarget = e.target.elements.search.value;
+      //const url = "http://api.geonames.org/searchJSON?q=london&maxRows=10&username=weknowit";
+      const url = this.formatURL(searchTarget);
       console.log(searchTarget);
       // fetch the information from GeoNames
       fetch(url)
@@ -34,6 +38,22 @@ class SearchPage extends React.Component {
       .then(data => this.transformData(data));
 
     }
+    // Function to format the URL string according to what we are searching for, e.g City or country
+    formatURL(search){
+      if(this.state.byCity === true){
+        return `http://api.geonames.org/searchJSON?q=${search}&maxRows=1&username=weknowit`;
+      }
+      else {
+        //If we search for a country, we use the json file in src/data/countries.json to find the corresponding code
+        // Then when we find a match we return the correctly formated string.
+        for(let i = 0; i < codes.length; i++){
+          if(search.toLowerCase() === codes[i].name.toLowerCase()) {
+            return `http://api.geonames.org/searchJSON?country=${codes[i].code}&cities=cities15000&maxRows=10&username=weknowit`;
+          }
+        }
+      }
+    }
+
     // Creates and pushed objects to our results state.
     transformData(data){
       console.log(data);

@@ -11,8 +11,9 @@ import DisplayCity from './components/DisplayCity';
 
 /*TODO
 Fix search for one city, [X]
-Also look over the api,
-comment code,
+Also look over the api, [X]
+comment code, [X]
+handle errors on search, 
 write documentation
 */
 
