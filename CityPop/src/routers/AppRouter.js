@@ -14,9 +14,9 @@ const AppRouter = () => (
     <BrowserRouter>
             <Switch>
                 <Route path="/" component={ButtonPage} exact={true}/>
-                <Route path="/search" component={SearchPage} exact={true}/>
-                <Route path="/display_results" component={DisplayResults}/>
-                <Route path="/display_city" component={DisplayCity}/>
+                <Route path="/search" component={SearchPage} exact={true} />
+                <Route path="/display_results" component={DisplayResults} exact={true} />
+                <Route path="/display_city" component={DisplayCity} exact={true} />
                 <Route component={NotFound}/>
             </Switch>
     </BrowserRouter>
