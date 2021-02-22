@@ -61,6 +61,15 @@ input:focus, textarea:focus, select:focus {
     width: 4rem;
 }
 
+.loading__message {
+    font-size: 2rem;
+}
+
+.error__message {
+    font-size: 2rem;
+    color: red;
+}
+
 /* City.js */
 .city__container {
     margin: 1rem auto;

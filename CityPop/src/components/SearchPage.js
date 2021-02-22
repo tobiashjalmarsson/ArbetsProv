@@ -144,8 +144,12 @@ class SearchPage extends React.Component {
               <div>
                 <button className="search__button"></button>
               </div>
-              {this.state.loading && <p>Loading...</p>}
-              {this.state.error && <p>Error.. {this.state.error}</p>}
+              {this.state.loading &&  <div className="population__container">
+                                        <p className="loading__message">Loading...</p>
+                                      </div>}
+              {this.state.error && <div className="population__container">
+                                      <p className="error__message">Error.. {this.state.error}</p>
+                                    </div>}
             </form>
           </div>
         );
