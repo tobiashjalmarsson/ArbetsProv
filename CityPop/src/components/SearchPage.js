@@ -89,7 +89,7 @@ class SearchPage extends React.Component {
           // Create an Array of objects with the results
           searchResult.push(
             {
-              name: data.geonames[i].toponymName,
+              name: data.geonames[i].name,
               population: data.geonames[i].population
             }
           );
