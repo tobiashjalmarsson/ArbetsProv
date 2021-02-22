@@ -32,7 +32,6 @@ class SearchPage extends React.Component {
       let searchTarget = e.target.elements.search.value;
       //const url = "http://api.geonames.org/searchJSON?q=london&maxRows=10&username=weknowit";
       let result = this.formatURL(searchTarget);
-      console.log(result.error);
       // fetch the information from GeoNames
       
       if(result.error === '') {
