@@ -1,7 +1,6 @@
 import React from 'react';
 import {BrowserRouter, Route, Switch, Link} from 'react-router-dom';
 import ButtonPage from '../components/ButtonPage';
-import CityPop from '../components/CityPop';
 import NotFound from '../components/NotFound';
 import SearchPage from '../components/SearchPage';
 import DisplayResults from '../components/DisplayResults';

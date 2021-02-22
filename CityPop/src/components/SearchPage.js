@@ -38,7 +38,7 @@ class SearchPage extends React.Component {
       if(result.error === '') {
         fetch(result.url)
         .then(response => response.json())
-        .then(data => this.transformData(data, result.error));
+        .then(data => this.transformData(data));
         
       }
       else {
@@ -47,7 +47,6 @@ class SearchPage extends React.Component {
           loading: false
         });
       }
-      console.log(result.error);
       
     }
     // Function to format the URL string according to what we are searching for, e.g City or country
@@ -65,6 +64,7 @@ class SearchPage extends React.Component {
               error: ''});
           }
         }
+        // If we can't find any results we set an error message.
         return ({
           url: '',
           error: "Coulden't find matching country, please try again."
@@ -74,7 +74,6 @@ class SearchPage extends React.Component {
 
     // Creates and pushed objects to our results state.
     transformData(data){
-      console.log(data);
       // data.geonames.length is 0 when we havent found any matching search results.
       // in that case we set loading to false and set the error message.
       if (data.geonames.length === 0) {
@@ -98,7 +97,6 @@ class SearchPage extends React.Component {
         // Sorting the objects in decending order based on population.
         searchResult.sort((a,b) => (a.population > b.population) ? -1 : 1);
 
-        console.log(searchResult);
         this.setState({
           results: searchResult,
           loading: false,
