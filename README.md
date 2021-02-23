@@ -75,6 +75,9 @@ Component responsible for displaying the Header on every single page, the header
 ### NotFound.js
 Responsible for rendering a very basic 404 page when the router have received an invalid route. Also contains a link back to the starting page.
 
+### data/countries.json
+Contains a list of available countries with corresponding country codes that are used to convert a search term to a code that can be used when creating the URL that communicates with the API.
+
 ### AppRouter.js
 Responsible for the routing between components in the application.
 ## Contributors
