@@ -34,7 +34,7 @@ const DisplayCity = (props) => {
                 subtitle={props.location.state.result.name}
                 />
                 <div className="population__container">
-                    <p className="population__txt">Population</p>
+                    <p className="population__txt">POPULATION</p>
                     <p className="population__num">
                     {formatPopulation(props.location.state.result.population)}
                     </p>

@@ -14,9 +14,9 @@ const Header = (props) => {
                     <Link to="/"
                     className="link"
                     >
-                        <h1>City Pop</h1>
+                        <h1>CityPop</h1>
                     </Link>
-                    {props.subtitle && <h2>{props.subtitle}</h2>}
+                    {props.subtitle && <h2>{props.subtitle.toUpperCase()}</h2>}
                 </div>
             </div>
         

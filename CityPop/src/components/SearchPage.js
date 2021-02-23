@@ -12,7 +12,8 @@ class SearchPage extends React.Component {
         loading: false, // set to true to display the loading indicator.
         error: '', // Set to an error message when we have received an error. Empty indicates no errors
         navigate: false, // navigate = true when we are navigating from the page
-        results: [] // results: store for search results in an array of objects of the form {name: "cityname", population: 1234}
+        results: [], // results: store for search results in an array of objects of the form {name: "cityname", population: 1234}
+        country: '' // If we search for a country, this is passed to the next component to display the country name
       }
     }
     // handleSubmit is responsible for getting data from the form and using that
@@ -37,7 +38,7 @@ class SearchPage extends React.Component {
       if(result.error === '') {
         fetch(result.url)
         .then(response => response.json())
-        .then(data => this.transformData(data));
+        .then(data => this.transformData(data, result));
         
       }
       // If we received an error from this.formatURL, stop loading and set the error message
@@ -56,9 +57,9 @@ class SearchPage extends React.Component {
       if(this.state.byCity === true){
         // check if we received an empty string or an number instead of the name of a city
         if (search.trim() === "" || !isNaN(parseInt(search))) {
-          return ({url: '', error: 'Please enter the name of a city.'});
+          return ({url: '', error: 'Please enter the name of a city.', country: ''});
         } else {
-          return ({url: `http://api.geonames.org/searchJSON?q=${search}&maxRows=1&username=weknowit`, error: ''});
+          return ({url: `http://api.geonames.org/searchJSON?q=${search}&maxRows=1&username=weknowit`, error: '', country: ''});
         }
       }
       else {
@@ -74,20 +75,23 @@ class SearchPage extends React.Component {
           if(search.toLowerCase() === codes[i].name.toLowerCase()) {
             return ({
               url: `http://api.geonames.org/searchJSON?country=${codes[i].code}&cities=cities15000&maxRows=10&username=weknowit`,
-              error: ''});
+              error: '',
+              country: search
+            });
           }
         }
         // If we can't find any matching results when searching for a country, we set the url to the empty string
         // and set the error message.
         return ({
           url: '',
-          error: "Coulden't find matching country, please try again."
+          error: "Coulden't find matching country, please try again.",
+          country: ''
         });
       }
     }
 
     // Creates and pushed objects to our results state.
-    transformData(data){
+    transformData(data, result){
       // data.geonames.length is 0 when we havent found any matching search results.
       // in that case we set loading to false and set the error message.
       if (data.geonames.length === 0) {
@@ -116,7 +120,8 @@ class SearchPage extends React.Component {
         this.setState({
           results: searchResult,
           loading: false,
-          navigate: true
+          navigate: true,
+          country: result.country
         });
       }
     }
@@ -132,7 +137,8 @@ class SearchPage extends React.Component {
           to={{
             pathname: "/display_results",
             state: {
-              results: this.state.results
+              results: this.state.results,
+              country: this.state.country
             }
           }}
         />);
@@ -159,7 +165,7 @@ class SearchPage extends React.Component {
                 <input type="text" className="search__input" name="search"></input>
               </div>
               <div>
-                <button className="search__button"></button>
+                <button className="search__button">Search</button>
               </div>
               {this.state.loading &&  <div className="population__container">
                                         <p className="loading__message">Loading...</p>

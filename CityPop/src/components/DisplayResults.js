@@ -11,7 +11,7 @@ const DisplayResults = (props) => {
     */
         return (
             <div className="container">
-                <Header />
+                <Header subtitle={props.location.state.country}/>
                 <div>
                 {props.location.state.results.map((result) => (
                     <City 
