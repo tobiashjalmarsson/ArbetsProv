@@ -38,7 +38,7 @@ The application was developed with React.JS and the API GeoNames.
 - Step 6: Open the port prompted in your prompt for example : "Project is running at http://localhost:8080/" then open http://localhost:8080/ in your browser.
 - Step 7: Modify the components and add functionality!
 
-### Through build files
+
 ## Usage
 ### To search for a specific city
 Click on "SEARCH BY CITY", then enter the name of a city, for example "Gothenburg" or "Vienna", then the population of said city will be displayed on a new page.
@@ -59,6 +59,9 @@ The starting page of the application, from here you can choose to either search 
 
 ### SearchPage.js
 Responsible for all the logic related to searching and error handling.
+- handleSubmit() : Takes the input from the text field in the application. Fetches the data from the API and formats it with transformData.
+- formatURL() : Takes the search input from the text field and checks if it's valid. If it is it returns an URL to use for calling the API. It can also set error messages and stores the country we have searched for (if we haven't searched for a city).
+- transformData() : Takes the retrieved data fro the API and adds it to the state of the component, also sets error messages/country name as states.
 
 ### DisplayCity.js
 Displays a the view of a citys population either from searching said city or clicking it in the list after searching for a country in SearchPage.js.
