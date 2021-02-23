@@ -8,19 +8,17 @@ class SearchPage extends React.Component {
       super(props);
       this.handleSubmit = this.handleSubmit.bind(this);
       this.state = {
-        // determines if we are searching for a single city
-        byCity: this.props.location.state.byCity,
-        loading: false,
-        // navigate = true when we are navigating from the page
-        error: '', // Set to an error message when we have received an error.
-        navigate: false,
-        // results: store for search results on the form {name: "cityname", population: 1234}
-        results: []
+        byCity: this.props.location.state.byCity,// determines if we are searching for a single city or a country
+        loading: false, // set to true to display the loading indicator.
+        error: '', // Set to an error message when we have received an error. Empty indicates no errors
+        navigate: false, // navigate = true when we are navigating from the page
+        results: [] // results: store for search results in an array of objects of the form {name: "cityname", population: 1234}
       }
     }
-    // Gets input from user and fetches data from GeoNames API
+    // handleSubmit is responsible for getting data from the form and using that
+    // to retrieve data from the GeoNames API.
     handleSubmit = (e) => {
-      // Setting loading = true to display Loading...
+      // When we submit an search term we set loading to true and error to the empty string (which indicates false)
       this.setState({
         loading: true,
         error: '',
@@ -30,16 +28,19 @@ class SearchPage extends React.Component {
       // Get input from user 
       
       let searchTarget = e.target.elements.search.value;
-      //const url = "http://api.geonames.org/searchJSON?q=london&maxRows=10&username=weknowit";
+      // Result returns an object { url: "www.exampleurl.com", error: "I coulden't find the city"}
+      // if the error is an empty string this indicates that we had no errors
+      // if its not then we received an error while trying to format the string.
       let result = this.formatURL(searchTarget);
-      // fetch the information from GeoNames
-      
+      // If we didn't receive an error from formatURL then fetch the data from the url we
+      // received from result. then call transformData with the data.
       if(result.error === '') {
         fetch(result.url)
         .then(response => response.json())
         .then(data => this.transformData(data));
         
       }
+      // If we received an error from this.formatURL, stop loading and set the error message
       else {
         this.setState({
           error: result.error,
@@ -50,20 +51,29 @@ class SearchPage extends React.Component {
     }
     // Function to format the URL string according to what we are searching for, e.g City or country
     formatURL(search){
+      // If we are searching for a singly city, we format the url accordingly and set errors to false
+      // since it that case errors will be handled in transformData()
       if(this.state.byCity === true){
         return ({url: `http://api.geonames.org/searchJSON?q=${search}&maxRows=1&username=weknowit`, error: ''});
       }
       else {
         //If we search for a country, we use the json file in src/data/countries.json to find the corresponding code
         // Then when we find a match we return the correctly formated string.
+        // NOTE: This could be changed to a binary search since it could be viewed as a sorted list.
+        // However this won't have any big performance issues since the list size is fixed and handled
+        // by the clients browser.
         for(let i = 0; i < codes.length; i++){
+          // compare the search input to the names in data/countries.json
+          // if we find a match (capitalization dosen't matter) we return the corresponding country code
+          // and use that to format the string.
           if(search.toLowerCase() === codes[i].name.toLowerCase()) {
             return ({
               url: `http://api.geonames.org/searchJSON?country=${codes[i].code}&cities=cities15000&maxRows=10&username=weknowit`,
               error: ''});
           }
         }
-        // If we can't find any results we set an error message.
+        // If we can't find any matching results when searching for a country, we set the url to the empty string
+        // and set the error message.
         return ({
           url: '',
           error: "Coulden't find matching country, please try again."
@@ -95,7 +105,9 @@ class SearchPage extends React.Component {
         }
         // Sorting the objects in decending order based on population.
         searchResult.sort((a,b) => (a.population > b.population) ? -1 : 1);
-
+        // When we are done with transforming and adding the data
+        // we update the loading to false to remove the loading indicator
+        // we set the result state and navigate to the next screen to display the
         this.setState({
           results: searchResult,
           loading: false,
