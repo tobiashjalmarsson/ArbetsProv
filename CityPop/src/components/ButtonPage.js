@@ -4,6 +4,10 @@ import Header from './Header';
 import { Link } from 'react-router-dom';
 const ButtonPage = (props) => {
     /*
+    Component responsible for the selection between searching for a city
+    or searching for a country.
+
+
     the state of the link will determine how the corresponding SearchPage is rendered
     byCity = true ==> render the page that searches by city
     byCity = false ==> render the page that searches by country

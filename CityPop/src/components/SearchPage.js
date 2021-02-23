@@ -3,6 +3,11 @@ import '../styles/styles.css';
 import Header from './Header';
 import codes from '../data/countries.json';
 import {Redirect} from 'react-router-dom';
+/*
+Component responsible for all the logic related to fetching from the API,
+formatting the data, and then passing it to the correct components.
+*/
+
 class SearchPage extends React.Component {
     constructor(props) {
       super(props);
