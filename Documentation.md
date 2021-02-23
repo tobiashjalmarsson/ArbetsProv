@@ -2,7 +2,8 @@
 
 ## Description
 CityPop is a webapplication used for finding the population of citys based on the search of a city or a country which will display a number of cities to choose from (the 10 largest of said country).
-
+## TODO
+- Update dependencies
 The application was developed with React.JS and the API GeoNames.
 ## Table of Contents
 - Installation
