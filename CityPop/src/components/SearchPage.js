@@ -54,7 +54,12 @@ class SearchPage extends React.Component {
       // If we are searching for a singly city, we format the url accordingly and set errors to false
       // since it that case errors will be handled in transformData()
       if(this.state.byCity === true){
-        return ({url: `http://api.geonames.org/searchJSON?q=${search}&maxRows=1&username=weknowit`, error: ''});
+        // check if we received an empty string or an number instead of the name of a city
+        if (search.trim() === "" || !isNaN(parseInt(search))) {
+          return ({url: '', error: 'Please enter the name of a city.'});
+        } else {
+          return ({url: `http://api.geonames.org/searchJSON?q=${search}&maxRows=1&username=weknowit`, error: ''});
+        }
       }
       else {
         //If we search for a country, we use the json file in src/data/countries.json to find the corresponding code
